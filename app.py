@@ -1,5 +1,6 @@
 from flask import Flask, app
 
+
 default_config = {'MONGODB_SETTINGS': {
     'db': 'w_mz_fi',
     'host': 'localhost',
