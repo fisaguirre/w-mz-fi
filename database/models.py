@@ -10,5 +10,6 @@ class User(db.Document):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
+"""
 User.register_delete_rule(Movie, 'added_by', db.CASCADE)
+"""
