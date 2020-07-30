@@ -1,23 +1,23 @@
-from flask import Flask, app
+from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
+from database.db import initialize_db
+from flask_restful import Api
+from resources.routes import initialize_routes
 
-default_config = {'MONGODB_SETTINGS': {
-    'db': 'w_mz_fi',
-    'host': 'localhost',
-    'port': 27017,
-    'username': 'admin',
-    'password': 'password',
-    'authentication_source': 'admin'}}
+app = Flask(__name__)
+app.config.from_envvar('ENV_FILE_LOCATION')
 
+api = Api(app)
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 
-def get_flask_app(config: dict = None) -> app.Flask:
-    flask_app = Flask(__name__)
+app.config['MONGODB_SETTINGS'] = {
+    'host': 'mongodb://localhost/w_mz_fi'
+}
 
-    config = default_config if config is None else config
-    flask_app.config.update(config)
+initialize_db(app)
+initialize_routes(api)
 
-    return flask_app
-
-if __name__ == '__main__':
-    app = get_flask_app()
-    app.run(debug=True)
+app.run()
