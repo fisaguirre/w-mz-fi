@@ -16,8 +16,7 @@ jwt = JWTManager(app)
 app.config['MONGODB_SETTINGS'] = {
     'host': 'mongodb://localhost/w_mz_fi'
 }
-print ("hola")
 initialize_db(app)
 initialize_routes(api)
-time.sleep(5)
+
 app.run()

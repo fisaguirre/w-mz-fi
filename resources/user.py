@@ -11,8 +11,6 @@ class UsersApi(Resource):
 class UserApi(Resource):
     @jwt_required
     def delete(self, id):
-        user_jwt = get_jwt_identity()
-        """con get_jwt_identity obtengo el JWT del endpoint"""
         user = User.objects(id=id)
         if user.delete():
             return Response(user, mimetype="application/json", status=200)
